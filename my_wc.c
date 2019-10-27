@@ -25,6 +25,10 @@ int main(int argc, char *argv[]){
 		
 		else{
 			fp = fopen(argv[i], "r");
+			if(fp == NULL){
+				printf("my_wc: cannot open file\n");
+				exit(1);
+			}
 			while((fscanf(fp, "%c", &current)) != EOF) {
 				chars++;
 				if(current == '\n')
@@ -42,15 +46,18 @@ int main(int argc, char *argv[]){
   	}
 		
 	if(l == 1)
-		printf("lines: %d ", lines);
+		printf("%d ", lines);
 	if(w == 1)
-		printf("words: %d ", words);
+		printf("%d ", words);
 	if(c == 1)
-		printf("characters: %d ", chars);
+		printf("%d ", chars);
 	if(l == 1 || w == 1 || c == 1)
 		printf("%s\n", argv[count]);
-	else
+	else{
 		printf("my_wc: [option ...] [file ...]\n"); 
+		exit(1);
+	}
+		
 
 	return 0;
 	
