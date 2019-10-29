@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]){
 	FILE *fp;
-	char file_name[MAX_FILE_NAME_CHARS], c;
+	char c;
 	int i;
 
 	for(i = 1; i < argc; i++){
@@ -15,8 +15,8 @@ int main(int argc, char *argv[]){
 
   		if (fp == NULL)
   		{
-    			//printf("my_cat: cannot open file\n");    //Program prints error message 			and closes if file is not found            
-    			exit(0);
+    			printf("my_cat: cannot open file\n");          
+    			exit(1);
   		}
 		
 		while((c=fgetc(fp)) != EOF){
@@ -26,21 +26,4 @@ int main(int argc, char *argv[]){
  	}
 	return 0;
 }
-	//} 
 
-//	if (fp == NULL) 
-    //	{ 
-    //    	printf("my_cat: cannot open file\n"); 
-  //      	exit(1); 
-    	
-//	}
-	//c = fgetc(fp); 
-    	//while (c != EOF) 
-    	//{ 
-        //	for(i = 0; i < argc; i++){
-			
-	//	}
-	//	printf ("%c", c); 
-    //    	c = fgetc(fp); 
-  //  	}  
-//}

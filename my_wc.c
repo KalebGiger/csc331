@@ -5,25 +5,22 @@
 
 int main(int argc, char *argv[]){
 	FILE *fp;
-	int words = 0, chars = 0, lines = 0, i, count = 1, l = 0, w = 0, c = 0;
-	char prev, current;
+	int isWord, words = 0, chars = 0, lines = 0, i, count = 1, l = 0, w = 0, c = 0;
+	char current;
 
 	for(i = 1; i < argc; i++){
 
 		if(strcmp("-l", argv[i]) == 0){
-			count++;
 			l++;
 		}
 		else if(strcmp("-w", argv[i]) == 0){
-			count++;
 			w++;
 		}
 		else if(strcmp("-c", argv[i]) == 0){
-			count++;
 			c++;
 		}
 		
-		else{
+		else if(strcmp("-l", argv[i]) != 0 && strcmp("-w", argv[i]) != 0 && strcmp("-c", argv[i]) != 0){
 			fp = fopen(argv[i], "r");
 			if(fp == NULL){
 				printf("my_wc: cannot open file\n");
@@ -33,28 +30,39 @@ int main(int argc, char *argv[]){
 				chars++;
 				if(current == '\n')
 					lines++;
-				if (isspace(current)) 
-					words++;
-				prev = current;
+				if(!isspace(current)){ //&& current != '\n'
+					if(isWord != 1){
+						words++;
+						isWord = 1;
+					}
+				}
+				else
+					isWord = 0;
 			}
+
+			
 			fclose(fp);
 		}
 	}
-	if (argc == 1) {
-    		printf("my_wc: [option ...] [file ...]\n");   
-   		exit(1);
-  	}
-		
-	if(l == 1)
-		printf("%d ", lines);
-	if(w == 1)
-		printf("%d ", words);
-	if(c == 1)
-		printf("%d ", chars);
-	if(l == 1 || w == 1 || c == 1)
+
+	if(l<2 && w<2 && c<2){
+
+		if(l == 1)
+			printf("%d ", lines);
+
+		if(w == 1)
+			printf("%d ", words);
+
+		if(c == 1)
+			printf("%d ", chars);
+
+		if(l == 0 && w == 0 && c == 0){
+			printf("%d %d %d ", lines, words, chars);
+		}
 		printf("%s\n", argv[count]);
+	}
 	else{
-		printf("my_wc: [option ...] [file ...]\n"); 
+		printf("my_wc: [option ...] [file ...]");
 		exit(1);
 	}
 		
